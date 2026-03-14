@@ -1,2 +1,0 @@
-This is a demo file created by Antigravity to test the automatic GitHub connection.
-Created at: 2026-03-14 13:24
