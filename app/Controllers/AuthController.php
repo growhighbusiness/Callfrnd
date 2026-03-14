@@ -16,11 +16,6 @@ class AuthController extends Controller {
         $database = new Database();
         $db = $database->connect();
         $this->userModel = new User($db);
-
-        // Start session if not already started
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
     }
 
     /**
@@ -31,6 +26,7 @@ class AuthController extends Controller {
             $this->render('auth/signup');
         } else {
             header('Location: /profile');
+            exit;
         }
     }
 
@@ -59,6 +55,7 @@ class AuthController extends Controller {
             if ($userId) {
                 $this->setSession($userId);
                 header('Location: /profile');
+                exit;
             } else {
                 $this->render('auth/signup', ['error' => 'Registration failed. Try again.']);
             }
@@ -73,6 +70,7 @@ class AuthController extends Controller {
             $this->render('auth/login');
         } else {
             header('Location: /profile');
+            exit;
         }
     }
 
@@ -87,8 +85,10 @@ class AuthController extends Controller {
             $user = $this->userModel->login($credential, $password);
 
             if ($user) {
-                $this->setSession($user['user_id']);
+                // Pass full user to retrieve is_admin
+                $this->setSession($user);
                 header('Location: /profile');
+                exit;
             } else {
                 $this->render('auth/login', ['error' => 'Invalid credentials']);
             }
@@ -102,6 +102,7 @@ class AuthController extends Controller {
         session_unset();
         session_destroy();
         header('Location: /login');
+        exit;
     }
 
     /**

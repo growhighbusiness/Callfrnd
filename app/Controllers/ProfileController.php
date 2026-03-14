@@ -13,10 +13,6 @@ class ProfileController extends Controller {
 
     public function __construct($route_params) {
         parent::__construct($route_params);
-        
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
 
         // Auth Middleware
         if (!isset($_SESSION['logged_in'])) {

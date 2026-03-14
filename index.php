@@ -8,6 +8,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Start Global Session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Load Configuration
 require_once 'config/config.php';
 require_once 'config/database.php';

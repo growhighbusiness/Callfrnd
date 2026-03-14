@@ -13,15 +13,11 @@ class AdminController extends Controller {
 
     public function __construct($route_params) {
         parent::__construct($route_params);
-        
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
 
         // Extremely strict Admin Middleware
         if (!isset($_SESSION['logged_in']) || $_SESSION['is_admin'] != 1) {
             header('HTTP/1.1 403 Forbidden');
-            die('Access Denied: Super Admin Only.');
+            exit('Access Denied: Super Admin Only.');
         }
 
         $database = new Database();
