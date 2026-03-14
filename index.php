@@ -48,6 +48,10 @@ $router->add('profile', ['controller' => 'ProfileController', 'action' => 'index
 $router->add('profile/edit', ['controller' => 'ProfileController', 'action' => 'edit']);
 $router->add('profile/update', ['controller' => 'ProfileController', 'action' => 'update']);
 
+// Admin Routes
+$router->add('admin/settings/webrtc', ['controller' => 'AdminController', 'action' => 'webrtcSettings']);
+$router->add('admin/settings/webrtc/update', ['controller' => 'AdminController', 'action' => 'updateWebrtc']);
+
 // Home Redirect
 $router->add('', ['controller' => 'AuthController', 'action' => 'loginView']);
 

@@ -107,9 +107,10 @@ class AuthController extends Controller {
     /**
      * Helper: Set session data
      */
-    private function setSession($id) {
-        $_SESSION['user_id'] = $id;
+    private function setSession($user) {
+        $_SESSION['user_id'] = is_array($user) ? $user['user_id'] : $user;
         $_SESSION['logged_in'] = true;
+        $_SESSION['is_admin'] = (is_array($user) && isset($user['is_admin'])) ? $user['is_admin'] : 0;
     }
 
     /**
