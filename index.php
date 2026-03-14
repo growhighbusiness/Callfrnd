@@ -20,5 +20,26 @@ spl_autoload_register(function ($class) {
     }
 });
 
-echo "CallFrend Base Architecture Initialized.";
-// Future: Start Router here
+// Load Core Logic
+use App\Core\Router;
+
+$router = new Router();
+
+// Auth Routes
+$router->add('signup', ['controller' => 'AuthController', 'action' => 'signup']);
+$router->add('login', ['controller' => 'AuthController', 'action' => 'loginView']);
+$router->add('auth/register', ['controller' => 'AuthController', 'action' => 'register']);
+$router->add('auth/login', ['controller' => 'AuthController', 'action' => 'login']);
+$router->add('logout', ['controller' => 'AuthController', 'action' => 'logout']);
+
+// Profile Routes
+$router->add('profile', ['controller' => 'ProfileController', 'action' => 'index']);
+$router->add('profile/edit', ['controller' => 'ProfileController', 'action' => 'edit']);
+$router->add('profile/update', ['controller' => 'ProfileController', 'action' => 'update']);
+
+// Home Redirect
+$router->add('', ['controller' => 'AuthController', 'action' => 'loginView']);
+
+// Dispatch
+$url = $_SERVER['QUERY_STRING'] ?? '';
+$router->dispatch($url);
