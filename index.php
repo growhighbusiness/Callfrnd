@@ -61,5 +61,6 @@ $router->add('admin/settings/webrtc/update', ['controller' => 'AdminController',
 $router->add('', ['controller' => 'AuthController', 'action' => 'loginView']);
 
 // Dispatch
-$url = $_SERVER['QUERY_STRING'] ?? '';
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$url = trim($url, '/');
 $router->dispatch($url);
