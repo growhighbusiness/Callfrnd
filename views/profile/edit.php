@@ -12,7 +12,13 @@
             <h2 class="form-title">Edit Profile</h2>
             <p class="form-subtitle">Update your search preferences.</p>
 
-            <form action="/profile/update" method="POST">
+            <form action="/profile/update" method="POST" enctype="multipart/form-data">
+                <div class="input-group">
+                    <label>Profile Image (Optional)</label>
+                    <input type="file" name="profile_image" accept="image/jpeg, image/png, image/webp" style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 0.75rem; width: 100%; color: var(--text-main);">
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB. JPG, PNG, or WEBP.</small>
+                </div>
+
                 <div class="input-group">
                     <label>Gender</label>
                     <select name="gender">
@@ -33,15 +39,22 @@
 
                 <div class="input-group">
                     <label>Languages (Select Multiple)</label>
-                    <select name="languages[]" multiple style="height: 120px;">
-                        <?php 
-                        $langs = explode(',', $user['preferred_languages']);
-                        $options = ['English', 'Hindi', 'Tamil', 'Telugu', 'Malayalam', 'Kannada', 'Marathi'];
-                        foreach($options as $opt): ?>
-                            <option value="<?php echo $opt; ?>" <?php echo in_array($opt, $langs) ? 'selected' : ''; ?>>
-                                <?php echo $opt; ?>
-                            </option>
-                        <?php endforeach; ?>
+                    <select name="languages[]" multiple style="height: 150px;">
+                        <?php $langs = explode(',', $user['preferred_languages']); ?>
+                        <optgroup label="Global Languages">
+                            <?php 
+                            $global = ['English', 'Spanish', 'Portuguese', 'French', 'German', 'Arabic', 'Russian', 'Japanese'];
+                            foreach($global as $opt): ?>
+                                <option value="<?php echo $opt; ?>" <?php echo in_array($opt, $langs) ? 'selected' : ''; ?>><?php echo $opt; ?></option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                        <optgroup label="Indian Languages">
+                            <?php 
+                            $indian = ['Hindi', 'Tamil', 'Telugu', 'Malayalam', 'Kannada', 'Marathi', 'Gujarati', 'Bengali', 'Punjabi'];
+                            foreach($indian as $opt): ?>
+                                <option value="<?php echo $opt; ?>" <?php echo in_array($opt, $langs) ? 'selected' : ''; ?>><?php echo $opt; ?></option>
+                            <?php endforeach; ?>
+                        </optgroup>
                     </select>
                 </div>
 

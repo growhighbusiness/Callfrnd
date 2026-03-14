@@ -57,12 +57,28 @@
 
                 <div class="input-group">
                     <label>Preferred Languages</label>
-                    <select name="languages[]" multiple required style="height: 100px;">
-                        <option value="English">English</option>
-                        <option value="Hindi">Hindi</option>
-                        <option value="Tamil">Tamil</option>
-                        <option value="Telugu">Telugu</option>
-                        <option value="Malayalam">Malayalam</option>
+                    <select name="languages[]" multiple required style="height: 150px;">
+                        <optgroup label="Global Languages">
+                            <option value="English">English</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="Portuguese">Portuguese</option>
+                            <option value="French">French</option>
+                            <option value="German">German</option>
+                            <option value="Arabic">Arabic</option>
+                            <option value="Russian">Russian</option>
+                            <option value="Japanese">Japanese</option>
+                        </optgroup>
+                        <optgroup label="Indian Languages">
+                            <option value="Hindi">Hindi</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Telugu">Telugu</option>
+                            <option value="Malayalam">Malayalam</option>
+                            <option value="Kannada">Kannada</option>
+                            <option value="Marathi">Marathi</option>
+                            <option value="Gujarati">Gujarati</option>
+                            <option value="Bengali">Bengali</option>
+                            <option value="Punjabi">Punjabi</option>
+                        </optgroup>
                     </select>
                 </div>
 

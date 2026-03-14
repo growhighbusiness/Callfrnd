@@ -56,6 +56,30 @@ class ProfileController extends Controller {
                 'availability_status' => $_POST['availability']
             ];
 
+            // Handle Profile Image Upload
+            if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['profile_image']['tmp_name'];
+                $fileName = $_FILES['profile_image']['name'];
+                $fileSize = $_FILES['profile_image']['size'];
+                $fileType = $_FILES['profile_image']['type'];
+                
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+                
+                // Allow only specific extensions
+                $allowedfileExtensions = array('jpg', 'jpeg', 'png', 'webp');
+                
+                if (in_array($fileExtension, $allowedfileExtensions) && $fileSize < 2000000) { // 2MB Limit
+                    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                    $uploadFileDir = APP_ROOT . '/public/uploads/profiles/';
+                    $dest_path = $uploadFileDir . $newFileName;
+                    
+                    if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                        $data['profile_image'] = '/public/uploads/profiles/' . $newFileName;
+                    }
+                }
+            }
+
             if ($this->userModel->update($_SESSION['user_id'], $data)) {
                 header('Location: /profile');
             } else {
