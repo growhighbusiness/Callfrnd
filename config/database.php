@@ -5,9 +5,9 @@
 
 class Database {
     private $host = 'localhost';
-    private $db_name = 'callfrnd_db';
-    private $username = 'root';
-    private $password = '';
+    private $db_name = 'u217507402_callfrnd';
+    private $username = 'u217507402_callfrnd';
+    private $password = 'Callfrnd@123';
     private $conn;
 
     public function connect() {
