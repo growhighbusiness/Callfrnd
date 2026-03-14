@@ -12,13 +12,24 @@ error_reporting(E_ALL);
 require_once 'config/config.php';
 require_once 'config/database.php';
 
-// Simple Autoloader
+// Auto-loader that maps the App namespace to the lowercase 'app' directory
 spl_autoload_register(function ($class) {
-    $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+    $prefix = 'App\\';
+    $base_dir = __DIR__ . '/app/';
+
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
+
+    $relative_class = substr($class, $len);
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
     if (file_exists($file)) {
         require_once $file;
     }
 });
+
 
 // Load Core Logic
 use App\Core\Router;
